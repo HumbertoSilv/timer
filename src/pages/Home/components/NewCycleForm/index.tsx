@@ -18,11 +18,11 @@ export const NewCycleForm = () => {
         {...register('task')}
       />
 
-      <datalist id="task-suggestions">
+      {/* <datalist id="task-suggestions">
         <option value="Projeto 1" />
         <option value="Projeto 2" />
         <option value="Projeto 3" />
-      </datalist>
+      </datalist> */}
 
       <label htmlFor="minutesAmount">durante</label>
       <MinutesInput
@@ -31,7 +31,7 @@ export const NewCycleForm = () => {
         placeholder="00"
         disabled={!!activeCycle}
         step={5}
-        min={1}
+        min={5}
         max={60}
         {...register('minutesAmount', { valueAsNumber: true })}
       />

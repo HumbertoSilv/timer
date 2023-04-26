@@ -6,7 +6,6 @@ import enUS from 'date-fns/locale/en-US'
 
 export const History = () => {
   const { cycles } = useContext(CyclesContext)
-  console.log(cycles)
 
   return (
     <HistoryContainer>
