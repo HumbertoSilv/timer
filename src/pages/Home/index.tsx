@@ -5,12 +5,12 @@ import { CountDown } from './components/CountDown'
 import * as zod from 'zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { CyclesContext } from '../../contexts/CyclesContext'
 
 const formValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
-  minutesAmount: zod.number().min(5).max(60),
+  minutesAmount: zod.number().min(1).max(60),
 })
 
 type formData = zod.infer<typeof formValidationSchema>
@@ -23,7 +23,7 @@ export const Home = () => {
       minutesAmount: 0,
     },
   })
-  const { activeCycle, createNewCycle, interruptCurrentCycle } =
+  const { cycles, activeCycle, createNewCycle, interruptCurrentCycle } =
     useContext(CyclesContext)
 
   const { handleSubmit, watch, reset } = newCycleForm
@@ -34,6 +34,10 @@ export const Home = () => {
   }
 
   const task = watch('task')
+
+  useEffect(() => {
+    localStorage.setItem('@Timer:cycles', JSON.stringify(cycles))
+  }, [cycles])
 
   return (
     <HomeContainer>

@@ -34,7 +34,9 @@ export const CyclesContext = createContext({} as CyclesContextType)
 export const CyclesContextProvider = ({
   children,
 }: CycleContextProviderProps) => {
-  const [cycles, setCycles] = useState<Cycle[]>([])
+  const [cycles, setCycles] = useState<Cycle[]>(
+    JSON.parse(localStorage.getItem('@Timer:cycles')) || [],
+  )
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState<number>(0)
 

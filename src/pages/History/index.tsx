@@ -2,46 +2,46 @@ import { useContext } from 'react'
 import { HistoryContainer, HistoryListContainer, Status } from './styles'
 import { CyclesContext } from '../../contexts/CyclesContext'
 import { formatDistanceToNow } from 'date-fns'
-import enUS from 'date-fns/locale/en-US'
+import ptBR from 'date-fns/locale/pt-BR'
 
 export const History = () => {
   const { cycles } = useContext(CyclesContext)
 
   return (
     <HistoryContainer>
-      <h1>My history</h1>
+      <h1>Meu histórico</h1>
 
       <HistoryListContainer>
         <table>
           <thead>
             <tr>
-              <th>Task</th>
-              <th>Duration</th>
-              <th>Start</th>
+              <th>Tarefa</th>
+              <th>Duração</th>
+              <th>Início</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {cycles.map((cycle) => {
+            {cycles.slice(-8).map((cycle) => {
               return (
                 <tr key={cycle.id}>
                   <td>{cycle.task}</td>
                   <td>{cycle.minutesAmount} minutes</td>
                   <td>
-                    {formatDistanceToNow(cycle.startDate, {
+                    {formatDistanceToNow(new Date(cycle.startDate), {
                       addSuffix: true,
-                      locale: enUS,
+                      locale: ptBR,
                     })}
                   </td>
                   <td>
                     {cycle.finishedDate && (
-                      <Status statusColor="green">Done</Status>
+                      <Status statusColor="green">Concluído</Status>
                     )}
                     {cycle.interruptDate && (
-                      <Status statusColor="red">Interrupt</Status>
+                      <Status statusColor="red">Interrompido</Status>
                     )}
                     {!cycle.finishedDate && !cycle.interruptDate && (
-                      <Status statusColor="yellow">In progress</Status>
+                      <Status statusColor="yellow">Em progresso</Status>
                     )}
                   </td>
                 </tr>
